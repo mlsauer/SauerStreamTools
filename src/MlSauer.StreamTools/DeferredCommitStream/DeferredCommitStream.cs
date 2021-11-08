@@ -1,11 +1,11 @@
-﻿namespace MlSauer.StreamTools
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.IO;
-    using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
 
+namespace MlSauer.StreamTools
+{
     /// <summary>
     /// Stream that takes an underlying File- or MemoryStream, and stores all writes 
     /// non persistently until the Commit() method is called.
@@ -36,7 +36,7 @@
         /// <summary>if a write occurs a block of this size will be created and stored in memory</summary>
         private const long BLOCK_SIZE = 4096;
         /// <summary>The underlying stream</summary>
-        private Stream _Stream;
+        private readonly Stream _Stream;
         /// <summary>decides if the underlying stream is disposed when Dispose() or Close() is called</summary>
         private readonly bool _LeaveStreamOpen;
         /// <summary>
@@ -279,7 +279,7 @@
         /// <summary>Calculates the block index from any offset</summary>
         /// <param name="offset">the offset</param>
         /// <returns>the block index</returns>
-        private long GetBlockIdx(long offset)
+        private static long GetBlockIdx(long offset)
         {
             return offset / BLOCK_SIZE;
         }
